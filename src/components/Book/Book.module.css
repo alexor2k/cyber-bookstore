@@ -1,0 +1,26 @@
+.bookContainer {
+    max-width: 200px;
+    height: 320px;
+    margin: 0 auto;
+    padding: 0.1em;
+}
+
+.bookImage {  
+    padding-top: 1em;
+    cursor: pointer;
+}
+
+.titleContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title {
+    height:70px; 
+    overflow: hidden; 
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical
+}
