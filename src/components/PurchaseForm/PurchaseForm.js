@@ -1,7 +1,7 @@
 // src/components/PurchaseForm.js
 import React, { useState } from 'react';
 import { Modal, Box, TextField, Button, Typography } from '@mui/material';
-import styles from './Purchase.module.css';
+import styles from './PurchaseForm.module.css';
 
 const PurchaseForm = ({ open, handleClose }) => {
   const [formData, setFormData] = useState({
