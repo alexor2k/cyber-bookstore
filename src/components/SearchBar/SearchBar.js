@@ -24,7 +24,7 @@ const SearchBar = ({ setQuery}) => {
   return (
     <Box className={styles.container}>
       <TextField
-        label="Search for cyber books..."
+        label="Search ..."
         variant="outlined"
         value={searchText}
         onChange={(e) => handleTextChange(e)}        
