@@ -9,7 +9,6 @@ const getBooks = async (query, page, itemsPerPage) => {
 
     let results = itemsPerPage < maxResultsPerRequest ? await getDataFromApi(query, startIndex, itemsPerPage) : 
     await getDataFromApi(query, startIndex, maxResultsPerRequest);
-    debugger;
     if (itemsPerPage > maxResultsPerRequest) {
         const additionalResults = await getDataFromApi(query, startIndex + maxResultsPerRequest, itemsPerPage - maxResultsPerRequest);
         return(results.concat(additionalResults));

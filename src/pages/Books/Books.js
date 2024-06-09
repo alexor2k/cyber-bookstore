@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Grid, Container, IconButton } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Book from '../../components/Book/Book';
@@ -22,19 +22,19 @@ const Books = () => {
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState('')
 
+    const getBooks = useCallback(async () => {
+        try {
+            const books = await bookService.getBooks(query, page, itemsPerPage);
+            setBooks(books || []);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (error) {
+            console.error("Error getting books: ", error);
+        }
+    }, [query, page, itemsPerPage]);
+
     useEffect(() => {
         getBooks();       
-    }, [page, query, itemsPerPage]);   
-
-    const getBooks = async () => {        
-        try {
-          const books = await bookService.getBooks(query, page, itemsPerPage);
-          setBooks(books|| []);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        } catch (error) {
-          console.error("Error getting books: ", error);
-        }
-    };   
+    }, [getBooks]);   
     
     const handleSearch = (newQuery) => {
         if (query !== newQuery) {
@@ -49,7 +49,6 @@ const Books = () => {
     };
 
     const showNotification = (message, type) =>{
-        debugger;
         setAlertMessage(message);
         setAlertType(type);
         setAlertOpen(true);
@@ -58,7 +57,7 @@ const Books = () => {
     const handleAddToCart = (book) => {
         setCartItems((prevCartItems) => {
             const exists = prevCartItems.some((item) => item.id === book.id);
-            debugger;
+            ;
             if (exists) {
                 showNotification('This book is already in the cart.', 'warning')
                 return prevCartItems;
@@ -79,7 +78,7 @@ const Books = () => {
     };
 
     return (          
-        <Container>
+        <Container className={styles.mainContainer}>        
             <div className={styles.searchContainer}>
                 <SearchBar setQuery={handleSearch} />
                 <IconButton color="primary" onClick={toggleCart} className={styles.cartIconContainer}>
